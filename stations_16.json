@@ -1,0 +1,116 @@
+{
+    "stations": [
+        {
+            "stationId": "10385",
+            "name": "BERLIN-SCHOENEFELD",
+            "latitude": 52.38,
+            "longitude": 13.52,
+            "altitude": 47
+        },
+        {
+            "stationId": "10224",
+            "name": "BREMEN",
+            "latitude": 53.05,
+            "longitude": 8.80,
+            "altitude": 3
+        },
+        {
+            "stationId": "10488",
+            "name": "DRESDEN",
+            "latitude": 51.13,
+            "longitude": 13.75,
+            "altitude": 230
+        },
+        {
+            "stationId": "10400",
+            "name": "DUESSELDORF",
+            "latitude": 51.30,
+            "longitude": 6.77,
+            "altitude": 45
+        },
+        {
+            "stationId": "10554",
+            "name": "ERFURT",
+            "latitude": 50.98,
+            "longitude": 10.97,
+            "altitude": 315
+        },
+        {
+            "stationId": "10147",
+            "name": "HAMBURG-FU.",
+            "latitude": 53.63,
+            "longitude": 10.00,
+            "altitude": 16
+        },
+        {
+            "stationId": "10338",
+            "name": "HANNOVER",
+            "latitude": 52.47,
+            "longitude": 9.68,
+            "altitude": 56
+        },
+        {
+            "stationId": "10044",
+            "name": "LEUCHTTURM KIEL",
+            "latitude": 54.50,
+            "longitude": 10.27,
+            "altitude": 5
+        },
+        {
+            "stationId": "10361",
+            "name": "MAGDEBURG",
+            "latitude": 52.12,
+            "longitude": 11.58,
+            "altitude": 79
+        },
+        {
+            "stationId": "K584_",
+            "name": "MAINZ (ZDF)",
+            "latitude": 49.97,
+            "longitude": 8.22,
+            "altitude": 195
+        },
+        {
+            "stationId": "10865",
+            "name": "MUENCHEN STADT",
+            "latitude": 48.13,
+            "longitude": 11.55,
+            "altitude": 520
+        },
+        {
+            "stationId": "10379",
+            "name": "POTSDAM",
+            "latitude": 52.38,
+            "longitude": 13.07,
+            "altitude": 99
+        },
+        {
+            "stationId": "10708",
+            "name": "SAARBRUECKEN",
+            "latitude": 49.22,
+            "longitude": 7.12,
+            "altitude": 322
+        },
+        {
+            "stationId": "10162",
+            "name": "SCHWERIN",
+            "latitude": 53.63,
+            "longitude": 11.38,
+            "altitude": 59
+        },
+        {
+            "stationId": "10739",
+            "name": "STUTTGART-SCHN.",
+            "latitude": 48.83,
+            "longitude": 9.20,
+            "altitude": 314
+        },
+        {
+            "stationId": "L821_",
+            "name": "WIESBADEN-AURINGEN",
+            "latitude": 50.13,
+            "longitude": 8.32,
+            "altitude": 263
+        }
+    ]
+}

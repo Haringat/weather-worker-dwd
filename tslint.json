@@ -1,0 +1,32 @@
+{
+    "defaultSeverity": "error",
+    "extends": [
+        "tslint:recommended"
+    ],
+    "jsRules": {
+        "quotemark": [
+            true,
+            "double"
+        ],
+        "trailing-comma": [
+            true,
+            {
+                "multiline": "never",
+                "singleline": "never"
+            }
+        ]
+    },
+    "rules": {
+        "trailing-comma": [
+            true,
+            {
+                "multiline": "never",
+                "singleline": "never"
+            }
+        ],
+        "no-console": [false],
+        "array-type": [true, "generic"],
+        "variable-name": [true, "allow-leading-underscore"]
+    },
+    "rulesDirectory": []
+}

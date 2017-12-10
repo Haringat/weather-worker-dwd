@@ -1,0 +1,26 @@
+{
+  "name": "weather-worker-dwd-serialize",
+  "version": "0.0.1",
+  "main": "./index.js",
+  "jsnext:main": "./index.mjs",
+  "devDependencies": {
+    "@types/node": "^8.0.57",
+    "@types/request": "^2.0.8",
+    "@types/request-promise-native": "^1.0.10",
+    "gulp": "^3.9.1",
+    "gulp-clean": "^0.3.2",
+    "gulp-plumber": "^1.1.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sourcemaps": "^2.6.1",
+    "gulp-tslint": "^8.1.2",
+    "gulp-typescript": "^3.2.3",
+    "merge2": "^1.2.0",
+    "tslint": "^5.8.0",
+    "typescript": "^2.6.2"
+  },
+  "dependencies": {
+    "async-tools": "../async-tools/",
+    "request": "^2.83.0",
+    "request-promise-native": "^1.0.5"
+  }
+}
