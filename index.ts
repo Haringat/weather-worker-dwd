@@ -30,8 +30,9 @@ export default async function main(parameters: any) {
         forecasts.push(...await getForecast(station, capabilities));
         reports.push(...await getReport(station, capabilities));
     });
+    console.log(`got ${reports.length} report datapoints and ${forecasts.length} forecast datapoints`);
     await forecasts.forEachAsync(async (dataPoint) => {
-        // try {
+        try {
             await request({
                 agent,
                 body: {
@@ -41,12 +42,12 @@ export default async function main(parameters: any) {
                 method: "POST",
                 uri: `${weatherApi}/stations/${dataPoint.stationId}/forecasts`
             });
-        /*} catch (e) {
+        } catch (e) {
             console.log(e.stack);
-        }*/
+        }
     });
     await reports.forEachAsync(async (dataPoint) => {
-        // try {
+        try {
             await request({
                 agent,
                 body: {
@@ -56,9 +57,9 @@ export default async function main(parameters: any) {
                 method: "POST",
                 uri: `${weatherApi}/stations/${dataPoint.stationId}/reports`
             });
-        /*} catch (e) {
+        } catch (e) {
             console.log(e.stack);
-        }*/
+        }
     });
 }
 
@@ -70,6 +71,7 @@ async function getForecast(station, capabilities) {
             uri: `${dwdForecastApi}/${station.stationId}-MOSMIX.csv`
         });
     } catch (e) {
+        console.log(e.stack);
         return [];
     }
     let csv = responseBuffer.toString();
@@ -357,7 +359,7 @@ async function getReport(station, capabilities) {
                 });
         }
     });
-    return table.slice(4).map((row) => {
+    const allData = table.slice(4).map((row) => {
         return row.slice(3).map((value, index) => {
             const dateParts = (row[0] + ";" + row[1]).match(/(\d{2})\.(\d{2})\.(\d{2});(\d{2}):(\d{2})/);
             const dataPointDate = new Date();
@@ -367,6 +369,128 @@ async function getReport(station, capabilities) {
             dataPointDate.setUTCHours(Number(dateParts[4]));
             dataPointDate.setUTCSeconds(Number(dateParts[5]));
             dataPointDate.setUTCMilliseconds(0);
+            switch (table[2][index + 3]) {
+                case "mittlere Temperatur (vergangener Tag. 2m)":
+                    table[2][index + 3] = "daily mean of temperature previous day";
+                    break;
+                case "Sonnenscheindauer (vergangener Tag)":
+                    table[2][index + 3] = "total time of sunshine past day";
+                    break;
+                case "Sonnenscheindauer (letzte Stunde)":
+                    table[2][index + 3] = "total time of sunshine during last hour";
+                    break;
+                case "Schneehoehe":
+                    table[2][index + 3] = "total snow depth";
+                    break;
+                case "Temperatur (5cm)":
+                    table[2][index + 3] = "temperature at 5 cm above ground";
+                    break;
+                case "Wassertemperatur":
+                    table[2][index + 3] = "sea/water temperature";
+                    break;
+                case "Relative Feuchte":
+                    table[2][index + 3] = "relative humidity";
+                    break;
+                case "Druck (auf Meereshoehe)":
+                    table[2][index + 3] = "pressure reduced to mean sea level";
+                    break;
+                case "aktuelles Wetter":
+                    table[2][index + 3] = "present weather";
+                    break;
+                case "Niederschlag (letzte Stunde)":
+                    table[2][index + 3] = "precipitation amount last hour";
+                    break;
+                case "Niederschlag (letzte 3 Stunden)":
+                    table[2][index + 3] = "precipitation amount last 3 hours";
+                    break;
+                case "Niederschlag (letzte 6 Stunden)":
+                    table[2][index + 3] = "precipitation amount last 6 hours";
+                    break;
+                case "Niederschlag (letzte 12 Stunden)":
+                    table[2][index + 3] = "precipitation amount last 12 hours";
+                    break;
+                case "Niederschlag (letzte 24 Stunden)":
+                    table[2][index + 3] = "precipitation amount last 24 hours";
+                    break;
+                case "vergangenes Wetter 1":
+                    table[2][index + 3] = "past weather 1";
+                    break;
+                case "vergangenes Wetter 2":
+                    table[2][index + 3] = "past weather 2";
+                    break;
+                case "Minimumtemperatur (letzte 12 Stunden. 5cm)":
+                    table[2][index + 3] = "minimum temperature at 5 cm above ground last 12h";
+                    break;
+                case "Minimumtemperatur (letzte 12 Stunden. 2m)":
+                    table[2][index + 3] = "minimum temperature last 12 hours 2 meters above ground";
+                    break;
+                case "Minimumtemperatur (vergangener Tag. 2m)":
+                    table[2][index + 3] = "minimum of temperature for previous day";
+                    break;
+                case "Minimumtemperatur (vergangener Tag. 5cm)":
+                    table[2][index + 3] = "minimum of temperature at 5 cm above ground for previous day";
+                    break;
+                case "Windgeschwindigkeit":
+                    table[2][index + 3] = "mean wind speed during last 10 min. at 10 meters above ground";
+                    break;
+                case "Windrichtung":
+                    table[2][index + 3] = "mean wind direction during last 10 min. at 10 meters above ground";
+                    break;
+                case "Windboen (letzte Stunde)":
+                    table[2][index + 3] = "";
+                    break;
+                case "Windboen (vergangener Tag)":
+                    table[2][index + 3] = "";
+                    break;
+                case "Windboen (letzte 6 Stunden)":
+                    table[2][index + 3] = "";
+                    break;
+                case "Maximalwind (letzte Stunde)":
+                    table[2][index + 3] = "";
+                    break;
+                case "Maximumtemperatur (letzte 12 Stunden. 2m)":
+                    table[2][index + 3] = "maximum temperature last 12 hours 2 meters above ground";
+                    break;
+                case "Maximumtemperatur (vergangener Tag. 2m)":
+                    table[2][index + 3] = "";
+                    break;
+                case "Maximalwind (vergangener Tag)":
+                    table[2][index + 3] = "maximum wind speed for previous day";
+                    break;
+                case "Sichtweite":
+                    table[2][index + 3] = "horizontal visibility";
+                    break;
+                case "Wolkenuntergrenze":
+                    table[2][index + 3] = "height of base of lowest cloud above station";
+                    break;
+                case "Globalstrahlung (vergangene 24 Stunden)":
+                    table[2][index + 3] = "global radiation past 24 hours";
+                    break;
+                case "Globalstrahlung (letzte Stunde)":
+                    table[2][index + 3] = "global radiation last hour";
+                    break;
+                case "Evaporation (vergangene 24 Stunden)":
+                    table[2][index + 3] = "evaporation/evapotranspiration last 24 hours";
+                    break;
+                case "Temperatur (2m)":
+                    table[2][index + 3] = "dry bulb temperature at 2 meter above ground";
+                    break;
+                case "Direkte Strahlung (letzte Stunde)":
+                    table[2][index + 3] = "direct solar radiation last hour";
+                    break;
+                case "Direkte Strahlung (vergangene 24 Stunden)":
+                    table[2][index + 3] = "direct solar radiation last 24 hours";
+                    break;
+                case "Diffuse Strahlung (letzte Stunde)":
+                    table[2][index + 3] = "diffuse solar radiation last hour";
+                    break;
+                case "Taupunkttemperatur (2m)":
+                    table[2][index + 3] = "dew point temperature at 2 meter above ground";
+                    break;
+                case "Neuschneehoehe":
+                    table[2][index + 3] = "depth of new snow";
+                    break;
+            }
             const capability = capabilities.find(
                 (candidate) => candidate.name.replace("_", " ") === table[2][index + 3]
             );
@@ -381,7 +505,9 @@ async function getReport(station, capabilities) {
     }).reduce(
         (a, b) => a.concat(b),
         []
-    ).filter(
+    );
+
+    return allData.filter(
         (dataPoint) => dataPoint.value !== "---" && !isNaN(dataPoint.value) && dataPoint.capabilityId !== null
     );
 }
